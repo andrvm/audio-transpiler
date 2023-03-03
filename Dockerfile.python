@@ -5,6 +5,7 @@ WORKDIR /scripts
 COPY requirements.txt .
 
 RUN pip install -r requirements.txt
+RUN ffdl install --add-path -y
 
 CMD ["python3"]
 

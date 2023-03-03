@@ -2,8 +2,8 @@ version: '3.4'
 
 services:
 
-  python-bot:
-    image: health-checker-python
+  python-audit-bot:
+    image: audio-transpiler-python
     container_name: audio-transpiler-python
     stdin_open: true
     tty: true
