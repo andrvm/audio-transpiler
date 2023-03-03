@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+
+  python-bot:
+    image: health-checker-python
+    container_name: audio-transpiler-python
+    stdin_open: true
+    tty: true
+    restart: always
+    build:
+      context: .
+      dockerfile: ./Dockerfile.python
+    command: python3 main.py
+    volumes:
+      - ./scripts/:/scripts
