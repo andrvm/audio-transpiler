@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
 
-  python-audit-bot:
+  python-audio-bot:
     image: audio-transpiler-python
     container_name: audio-transpiler-python
     stdin_open: true
