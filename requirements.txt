@@ -1,5 +1,6 @@
 SpeechRecognition
 pydub
 pyTelegramBotAPI
+ffmpeg
 ffmpeg-downloader
 pydub
