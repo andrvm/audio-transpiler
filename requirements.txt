@@ -3,3 +3,4 @@ pydub
 pyTelegramBotAPI
 ffmpeg-downloader
 pydub
+python-dotenv

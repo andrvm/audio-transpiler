@@ -1,16 +1,23 @@
 # !/usr/bin/env python
+import os
+import uuid
 import telebot
 import speech_recognition as sr
 from pydub import AudioSegment
 
-bot = telebot.TeleBot('6294396825:AAEo59o8skQLoyn4vYPtK0PtEVsz3TkiIVQ')
+from dotenv import load_dotenv
 
-AUDIO_FILE = 'audio.wav'
-
+load_dotenv()
+TOKEN = os.environ.get('APP_TOKEN')
+bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(content_types=['audio', 'voice'])
 def handle_voice(message):
+
     out = 'Сорри, но что-то пошло не так...'
+    unique_name = uuid.uuid4()
+    wav_file = f'{unique_name}.wav'
+    ogg_file = f'{unique_name}.ogg'
 
     if message.content_type == 'audio':
         file_info = bot.get_file(message.audio.file_id)
@@ -18,17 +25,25 @@ def handle_voice(message):
         file_info = bot.get_file(message.voice.file_id)
 
     downloaded_file = bot.download_file(file_info.file_path)
-    with open('audio.ogg', 'wb') as new_file:
+    with open(wav_file, 'wb') as new_file:
         new_file.write(downloaded_file)
 
     # transpile
-    sound = AudioSegment.from_ogg('audio.ogg')
-    sound.export(AUDIO_FILE, format='wav')
+    sound = AudioSegment.from_ogg(ogg_file)
+    sound.export(wav_file, format='wav')
     #
     r = sr.Recognizer()
-    with sr.AudioFile(AUDIO_FILE) as source:
+    with sr.AudioFile(wav_file) as source:
         audio = r.record(source)
         out = r.recognize_google(audio, language='ru-RU')
+
+    # clean
+    if os.path.exists(wav_file):
+        os.remove(wav_file)
+
+    if os.path.exists(ogg_file):
+        os.remove(ogg_file)
+
     bot.reply_to(message, out)
 
 

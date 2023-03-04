@@ -9,4 +9,3 @@ RUN apt-get update && apt-get install ffmpeg -y && \
     ffdl install --add-path -y
 
 CMD ["python3"]
-
