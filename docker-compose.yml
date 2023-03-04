@@ -14,3 +14,5 @@ services:
     command: python3 main.py
     volumes:
       - ./scripts/:/scripts
+    env_file:
+      - .env
