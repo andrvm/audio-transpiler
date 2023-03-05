@@ -30,6 +30,9 @@ def handle_voice(message):
     try:
         user_lang = get_user_lang(chat_id=message.chat.id)
         user_lang_mark = '🇷🇺' if user_lang == 'ru-RU' else '🇬🇧'
+
+        bot.send_message(message.chat.id, f'Начинаем обработку, перекодируем на {user_lang_mark} ...\n')
+
         unique_name = uuid.uuid4()
         wav_file = f'{unique_name}.wav'
         ogg_file = f'{unique_name}.ogg'
@@ -50,15 +53,19 @@ def handle_voice(message):
         r = sr.Recognizer()
         with sr.AudioFile(wav_file) as source:
             audio = r.record(source)
-            out = f'Перекодировка произведена на {user_lang_mark}\n\r'
-            out += r.recognize_google(audio, language=user_lang)
+            out = r.recognize_google(audio, language=user_lang)
 
         # clean
         os.remove(wav_file)
         os.remove(ogg_file)
     except Exception as e:
         print(e)
-        out = 'Сорри, но что-то пошло не так...'
+        if os.path.exists(wav_file):
+            os.remove(wav_file)
+        if os.path.exists(ogg_file):
+            os.remove(ogg_file)
+        out = 'Сорри, но что-то пошло не так...\n\r'
+        out += f'Возможно вы выбрали неправильный язык перекоодировки, текущий - {user_lang_mark}. Выбор языка доступен в /settings.'
 
     finally:
         bot.reply_to(message, out)
