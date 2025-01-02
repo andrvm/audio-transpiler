@@ -7,6 +7,7 @@ COPY scripts/ .
 COPY .env .
 
 RUN apt-get update && apt-get install ffmpeg -y && \
+    pip install --upgrade pip && \
     pip install -r requirements.txt && \
     ffdl install --add-path -y
 
