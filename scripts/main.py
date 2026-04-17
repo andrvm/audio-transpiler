@@ -6,6 +6,7 @@ from telebot import types
 import speech_recognition as sr
 from pydub import AudioSegment
 from dotenv import load_dotenv
+from telebot import apihelper
 
 from functions import (
     init_db,
@@ -21,6 +22,7 @@ from functions import (
 load_dotenv()
 TOKEN = os.environ.get('APP_TOKEN')
 bot = telebot.TeleBot(TOKEN)
+apihelper.API_URL = 'http://89.124.109.228:9099/bot{0}/{1}'
 init_db()
 
 
