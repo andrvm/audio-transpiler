@@ -32,7 +32,7 @@ load_dotenv()
 TOKEN = os.environ.get("APP_TOKEN")
 bot = telebot.TeleBot(TOKEN)
 apihelper.API_URL = os.environ.get("TELEGRAM_API_FORMAT_URL", "https://api.telegram.org/bot{0}/{1}")
-apihelper.FILE_URL = os.environ.get("TELEGRAM_API_FORMAT_URL", "https://api.telegram.org/bot{0}/{1}")
+apihelper.FILE_URL = os.environ.get("TELEGRAM_FILE_API_FORMAT_URL", "https://api.telegram.org/file/bot{0}/{1}")
 init_db()
 logger.info("Bot initialized successfully")
 
