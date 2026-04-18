@@ -32,6 +32,7 @@ load_dotenv()
 TOKEN = os.environ.get("APP_TOKEN")
 bot = telebot.TeleBot(TOKEN)
 apihelper.API_URL = "http://89.124.109.228:9099/bot{0}/{1}"
+apihelper.FILE_URL = "http://89.124.109.228:9099/file/bot{0}/{1}"
 init_db()
 logger.info("Bot initialized successfully")
 
